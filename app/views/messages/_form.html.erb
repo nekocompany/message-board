@@ -1,4 +1,23 @@
+
 <%= form_for(message) do |f| %>
+
+<%# validates によって検証に引っかかると、
+自動的に message.errors 変数にエラー内容が格納される
+%>
+  <%# any?配列の要素のうち一つでも真であればtrueを返す。 %>
+  <%# もしmessage.errors配列に一つでもエラーが入っているのなら %>
+  <% if message.errors.any? %>
+  <%= message.errors %>
+    <div id="error_explanation">
+      
+      <ul>
+        <% message.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= f.label :content, 'メッセージ' %>
   <%= f.text_field :content %>
 
