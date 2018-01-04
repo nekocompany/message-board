@@ -5,7 +5,9 @@ class MessagesController < ApplicationController
   
   
   def index
-    @messages = Message.all
+    #@messages = Message.all
+    # kaminariによるページネーション
+    @messages = Message.all.page(params[:page]).per(25)
   end
 
   def show
@@ -33,7 +35,7 @@ class MessagesController < ApplicationController
   end
 
   def update
-  
+    binding.pry
 
     if @message.update(message_params)
       flash[:success] = 'Message は正常に更新されました'
@@ -60,7 +62,7 @@ class MessagesController < ApplicationController
   
   # Strong Parameter
   def message_params
-    params.require(:message).permit(:content)
+    params.require(:message).permit(:content, :title)
   end
   
 end
